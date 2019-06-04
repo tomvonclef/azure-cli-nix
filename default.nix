@@ -26,8 +26,8 @@ self: super:
 
       my_adal = python-super.adal.override { requests = my_requests; };
 
-      my_argcomplete = python-super.argcomplete.override { 
-        requests_toolbelt = python-super.requests_toolbelt.override { 
+      my_argcomplete = python-super.argcomplete.override {
+        requests_toolbelt = python-super.requests_toolbelt.override {
           requests = my_requests;
           betamax = python-super.betamax.override { requests = my_requests; };
         };
@@ -35,7 +35,7 @@ self: super:
 
 
     in
-    
+
     {
 
       applicationinsights = python-super.callPackage ./pkgs/development/python-modules/applicationinsights {};
@@ -309,11 +309,31 @@ self: super:
 
       portalocker = python-super.callPackage ./pkgs/development/python-modules/portalocker { };
 
+      prompt_toolkit = python-super.callPackage ./pkgs/development/python-modules/prompt_toolkit {};
+
       pydocumentdb = python-super.callPackage ./pkgs/development/python-modules/pydocumentdb {
         requests = my_requests;
       };
 
+      pyyaml = python-super.callPackage ./pkgs/development/python-modules/pyyaml {};
+
+      six = python-super.tabulate.overridePythonAttrs (oldAttrs: rec {
+        version = "1.11.0";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9";
+        };
+      });
+
       sshtunnel = python-super.callPackage ./pkgs/development/python-modules/sshtunnel { };
+
+      tabulate = python-super.tabulate.overridePythonAttrs (oldAttrs: rec {
+        version = "0.8.2";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "e4ca13f26d0a6be2a2915428dc21e732f1e44dad7f76d7030b2ef1ec251cf7f2";
+        };
+      });
 
       vsts-cd-manager = python-super.callPackage ./pkgs/development/python-modules/vsts-cd-manager { };
 
